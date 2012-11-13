@@ -1,2 +1,3 @@
 install:
-	@cp ./image-to-icon /usr/local/bin/image-to-icon
+	cp ./image-to-favicon /usr/local/bin/image-to-favicon
+	cp ./image-to-touch-icons /usr/local/bin/image-to-touch-icons

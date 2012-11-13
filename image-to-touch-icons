@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Uncomment next line to dry run
+#ECHO=echo
+CONVERT=`which convert`
+TMP_DIR='/tmp/image-to-touch-icons/'
+SIZES=('apple-touch-icon.png,57x57' 'apple-touch-icon-precomposed.png,57x57' 'apple-touch-icon-114x114-precomposed.png,114x114' 'apple-touch-icon-144x144-precomposed.png,144x144' 'apple-touch-icon-57x57-precomposed.png,57x57' 'apple-touch-icon-72x72-precomposed.png,72x72')
+
+if [ ! -d "$TMP_DIR" ]; then
+  mkdir ${TMP_DIR}
+fi
+
+if [ ! -n "$CONVERT" ]; then 
+  echo 'ImageMagick not found! (not installed?)'
+  exit 1
+fi
+
+if [ -n "$1" ]; then
+  SOURCE_FILE=`readlink -f $1`
+else
+  echo 'No source file given'
+  exit
+fi
+
+if [ ! -e "$SOURCE_FILE" ]; then
+  echo "$SOURCE_FILE doesn't exists"
+  exit
+fi
+
+if [ -n "$2" ]; then # If target is given continue
+  if [ ! -d "$2" ]; then
+    echo 'Target needs to be a directory'
+    exit
+  else
+    TARGET_DIR="`readlink -f $2`/"
+  fi
+else
+  TARGET_DIR="`pwd`/"
+fi
+
+for SIZE in ${SIZES[@]}; do
+  IMAGE_AND_SIZE=($(echo $SIZE | tr "," " "))
+  IMAGE="${TARGET_DIR}${IMAGE_AND_SIZE[0]}"
+  SIZE="${IMAGE_AND_SIZE[1]}"
+  
+  $ECHO $CONVERT $SOURCE_FILE -resize $SIZE $IMAGE
+  
+  echo "Created ${SIZE} image: ${IMAGE}"
+done

@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Uncomment next line to test run
+# Uncomment next line to dry run
 #ECHO=echo
 CONVERT=`which convert`
 SIZES=(16 32 64 128 256)
 DEFAULT_NAME="favicon.ico"
-TMP_DIR='/tmp/favicon/'
+TMP_DIR='/tmp/image-to- icon/'
 TMP_EXTENSION='png'
 
 if [ ! -d "$TMP_DIR" ]; then
@@ -13,7 +13,7 @@ if [ ! -d "$TMP_DIR" ]; then
 fi
 
 if [ ! -n "$CONVERT" ]; then 
-  echo 'ImageMagick not found! (not installed)'
+  echo 'ImageMagick not found! (not installed?)'
   exit 1
 fi
 
