@@ -3,7 +3,7 @@
 # Uncomment next line to dry run
 #ECHO=echo
 CONVERT=`which convert`
-SIZES=(16 32 64 128 256)
+SIZES=(16 32 64)
 DEFAULT_NAME="favicon.ico"
 TMP_DIR='/tmp/image-to-favicon/'
 TMP_EXTENSION='png'
