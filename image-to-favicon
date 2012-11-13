@@ -5,7 +5,7 @@
 CONVERT=`which convert`
 SIZES=(16 32 64 128 256)
 DEFAULT_NAME="favicon.ico"
-TMP_DIR='/tmp/image-to- icon/'
+TMP_DIR='/tmp/image-to-favicon/'
 TMP_EXTENSION='png'
 
 if [ ! -d "$TMP_DIR" ]; then
