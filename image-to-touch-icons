@@ -4,7 +4,12 @@
 #ECHO=echo
 CONVERT=`which convert`
 TMP_DIR='/tmp/image-to-touch-icons/'
-SIZES=('apple-touch-icon.png,57x57' 'apple-touch-icon-precomposed.png,57x57' 'apple-touch-icon-114x114-precomposed.png,114x114' 'apple-touch-icon-144x144-precomposed.png,144x144' 'apple-touch-icon-57x57-precomposed.png,57x57' 'apple-touch-icon-72x72-precomposed.png,72x72')
+SIZES=('apple-touch-icon.png,57x57' \
+  'apple-touch-icon-precomposed.png,57x57' \
+  'apple-touch-icon-114x114-precomposed.png,114x114' \
+  'apple-touch-icon-144x144-precomposed.png,144x144' \
+  'apple-touch-icon-57x57-precomposed.png,57x57' \
+  'apple-touch-icon-72x72-precomposed.png,72x72')
 
 if [ ! -d "$TMP_DIR" ]; then
   mkdir ${TMP_DIR}
