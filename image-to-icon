@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# Uncomment next line to test run
+#ECHO=echo
+CONVERT=`which convert`
+SIZES=(16 32 64 128 256)
+DEFAULT_NAME="favicon.ico"
+TMP_DIR='/tmp/favicon/'
+TMP_EXTENSION='png'
+
+if [ ! -d "$TMP_DIR" ]; then
+  mkdir ${TMP_DIR}
+fi
+
+if [ ! -n "$CONVERT" ]; then 
+  echo 'ImageMagick not found! (not installed)'
+  exit 1
+fi
+
+if [ -n "$1" ]; then
+  SOURCE_FILE=`readlink -f $1`
+else
+  echo 'No source file given'
+  exit
+fi
+
+if [ ! -e "$SOURCE_FILE" ]; then
+  echo "$SOURCE_FILE doesn't exists"
+  exit
+fi
+
+if [ -n "$2" ]; then # If target is given continue
+  if [ -d "$2" ]; then # If target is directory assume target is favicon.ico in that directory
+    TARGET_FILE="`cd $2; pwd`/$DEFAULT_NAME"
+  else
+    TARGET_FILE=`readlink -f $2`
+  fi
+else
+  TARGET_FILE="`pwd`/$DEFAULT_NAME"
+fi
+
+SIZE_FILES=""
+SIZES_STR=""
+
+for SIZE in ${SIZES[@]}; do
+  SIZE_FILE="${TMP_DIR}favicon-${SIZE}.${TMP_EXTENSION}"
+  $ECHO $CONVERT $SOURCE_FILE -resize ${SIZE}x${SIZE} ${SIZE_FILE}
+  SIZES_STR="${SIZES_STR} ${SIZE}x${SIZE}"
+  SIZE_FILES="${SIZE_FILES} ${SIZE_FILE}"
+done 
+
+$ECHO $CONVERT ${SIZE_FILES} -colors 256 ${TARGET_FILE}
+
+
+echo "Created ${TARGET_FILE} with the following sizes:${SIZES_STR}"
+
+
+# Cleanup
+$ECHO rm ${SIZE_FILES}
